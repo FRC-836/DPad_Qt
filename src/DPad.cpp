@@ -7,8 +7,19 @@ const QColor DPad::DEFAULT_BACKGROUND_COLOR = QColor(109, 109, 109);
 //private functions
 void DPad::init(const QColor& arrowColor, const QColor& backgroundColor)
 {
-  //create down light
-  Light* downLight = new Light(this);
+  //setup UI
+  m_ui = new Ui_DPad();
+  m_ui->setupUi(this);
+
+  //set member variables
+  setArrowColor(arrowColor);
+  setBackgroundColor(backgroundColor);
+
+  //setup button map
+  m_buttons[Button::DOWN] = m_ui->lightBottom;
+  m_buttons[Button::UP] = m_ui->lightTop;
+  m_buttons[Button::LEFT] = m_ui->lightLeft;
+  m_buttons[Button::RIGHT] = m_ui->lightRight;
 }
 
 //event handlers
@@ -30,6 +41,7 @@ DPad::DPad(const QColor& arrowColor, const QColor& backgroundColor,
 }
 DPad::~DPad()
 {
+  delete m_ui;
 }
 
 //public functions

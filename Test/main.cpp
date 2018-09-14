@@ -11,6 +11,7 @@ int main(int argc, char** argv)
   DPad d;
 
   d.show();
+  d.pressButton(DPad::Button::UP);
 
   return app.exec();
 }

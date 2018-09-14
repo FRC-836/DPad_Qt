@@ -23,15 +23,14 @@ public:
     DOWN,
     LEFT,
     RIGHT,
-    NUM_BUTTONS
   };
 
 private:
   //member data
   Ui_DPad* m_ui;
-  QMap<Button, Light*> m_buttons;
   QColor m_arrowColor;
   QColor m_backgroundColor;
+  QMap<Button, Light*> m_buttons;
 
   //defaults
   static const QColor DEFAULT_ARROW_COLOR;
