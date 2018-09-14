@@ -45,6 +45,9 @@ set(include inc/DPad.h
 #create the library
 add_library(${PROJECT_NAME} ${src} ${include})
 
+#dependencies
+add_subdirectory(deps/Light_Qt)
+
 #linking
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
 
