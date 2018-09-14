@@ -33,7 +33,7 @@ DPad::~DPad()
 //getters
 bool DPad::buttonState(Button button) const
 {
-  return m_buttonStates[button]->on();
+  return m_buttons[button]->on();
 }
 QColor DPad::arrowColor() const
 {
@@ -45,34 +45,58 @@ QColor DPad::backgroundColor() const
 }
 QColor DPad::buttonOnColor() const
 {
-  return m_buttonStates[Button::DOWN]->onColor();
+  return m_buttons[Button::DOWN]->onColor();
 }
 QColor DPad::buttonOffColor() const
 {
-  return m_buttonStates[Button::DOWN]->offColor();
+  return m_buttons[Button::DOWN]->offColor();
 }
 
 //setters
 void DPad::setButtonState(Button button, bool newState)
 {
+  if (newState)
+  {
+    m_buttons[button]->turnOn();
+    emit buttonPressed();
+  } //end  if (newState)
+  else
+  {
+    m_buttons[button]->turnOff();
+    emit buttonReleased();
+  } //end  else
+
+  emit buttonStateChanged(button, newState);
 }
 void DPad::setArrowColor(const QColor& color)
 {
+  m_arrowColor = color;
 }
 void DPad::setBackgroundColor(const QColor& color)
 {
+  m_backgroundColor = color;
 }
 void DPad::setButtonOnColor(const QColor& color)
 {
+  for (auto button : m_buttons)
+  {
+    button->setOnColor(color);
+  } //end  for (auto button : m_buttons)
 }
 void DPad::setButtonOffColor(const QColor& color)
 {
+  for (auto button : m_buttons)
+  {
+    button->setOffColor(color);
+  } //end  for (auto button : m_buttons)
 }
 
 //public slots
 void DPad::pressButton(Button button)
 {
+  setButtonState(button, true);
 }
 void DPad::releaseButton(Button button)
 {
+  setButtonState(button, false);
 }

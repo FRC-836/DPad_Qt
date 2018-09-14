@@ -25,7 +25,7 @@ public:
 
 private:
   //member data
-  QMap<Button, Light*> m_buttonStates;
+  QMap<Button, Light*> m_buttons;
   QColor m_arrowColor;
   QColor m_backgroundColor;
 
