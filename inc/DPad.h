@@ -9,6 +9,8 @@
 #include <qevent.h>
 #include <qcolor.h>
 
+#include "Light.h"
+
 class DPad : public QWidget
 {
 public:
@@ -23,59 +25,54 @@ public:
 
 private:
   //member data
-  QMap<Button, bool> m_buttonStates;
+  QMap<Button, Light*> m_buttonStates;
   QColor m_arrowColor;
-  QColor m_buttonColor;
   QColor m_backgroundColor;
 
   //defaults
   static const QColor DEFAULT_ARROW_COLOR;
-  static const QColor DEFAULT_BUTTON_COLOR;
   static const QColor DEFAULT_BACKGROUND_COLOR;
 
   //private functions
-  void init(const QMap<Button, bool>& buttonStates, const QColor& arrowColor, 
-            const QColor& buttonColor, const QColor& backgroundColor);
+  void init(const QColor& arrowColor, const QColor& backgroundColor);
 
 protected:
   //event handlers
-  void paintEvent(QPaintEvent* e);
+  void paintEvent(QPaintEvent* e) override;
 
 public:
   //constructors
   DPad(QWidget* parent = nullptr);
-  DPad(const QMap<Button, bool>& m_buttonStates, 
-       const QColor& arrowColor = DEFAULT_ARROW_COLOR, 
-       const QColor& buttonColor = DEFAULT_BUTTON_COLOR, 
-       const QColor& backgroundColor = DEFAULT_BACKGROUND_COLOR, 
+  DPad(const QColor& arrowColor, const QColor& backgroundColor = DEFAULT_BACKGROUND_COLOR, 
        QWidget* parent = nullptr);
-  DPad(const QColor& arrowColor, const QColor& buttonColor = DEFAULT_BUTTON_COLOR,
-       const QColor& backgroundColor = DEFAULT_BACKGROUND_COLOR, QWidget* parent = nullptr);
   ~DPad();
 
   //public functions
 
   //getters
-  bool buttonState(Button toGrab) const;
-  QMap<Button, bool> buttonStates() const;
+  bool buttonState(Button button) const;
   QColor arrowColor() const;
-  QColor buttonColor() const;
   QColor backgroundColor() const;
+  QColor buttonOnColor() const;
+  QColor buttonOffColor() const;
 
   //setters
-  void setButtonState(Button toSet, bool state);
-  void setButtonStates(const QMap<Button, bool>& states);
+  void setButtonState(Button button, bool newState);
   void setArrowColor(const QColor& color);
-  void setArrowColor(int r, int g, int b);
   void setBackgroundColor(const QColor& color);
-  void setArrowColor(int r, int g, int b);
+  void setButtonOnColor(const QColor& color);
+  void setButtonOffColor(const QColor& color);
 
 signals:
-  void buttonStateChanged(Button changed, bool newState);
   //signals
+  void buttonStateChanged(Button button, bool newState);
+  void buttonPressed(Button button);
+  void buttonReleased(Button button);
 
 public slots:
   //public slots
+  void pressButton(Button button);
+  void releaseButton(Button button);
 
 };
 

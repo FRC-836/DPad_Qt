@@ -32,6 +32,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_SYSTEM_NAME}${ARC
 
 #setup include and linking directories
 include_directories(inc
+                    deps/Light_Qt/inc
                     )
                     
 

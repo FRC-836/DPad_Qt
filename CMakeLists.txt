@@ -32,6 +32,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_SYSTEM_NAME}${ARC
 
 #setup include and linking directories
 include_directories(inc
+                    deps/Light_Qt/inc
                     )
 
 #setup source files
@@ -49,7 +50,9 @@ add_library(${PROJECT_NAME} ${src} ${include})
 add_subdirectory(deps/Light_Qt)
 
 #linking
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets
+                      Light_Qt
+                      )
 
 set(BUILD_TEST true)
 if(BUILD_TEST)
