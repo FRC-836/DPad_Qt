@@ -33,18 +33,23 @@ DPad::~DPad()
 //getters
 bool DPad::buttonState(Button button) const
 {
+  return m_buttonStates[button]->on();
 }
 QColor DPad::arrowColor() const
 {
+  return m_arrowColor;
 }
 QColor DPad::backgroundColor() const
 {
+  return m_backgroundColor;
 }
 QColor DPad::buttonOnColor() const
 {
+  return m_buttonStates[Button::DOWN]->onColor();
 }
 QColor DPad::buttonOffColor() const
 {
+  return m_buttonStates[Button::DOWN]->offColor();
 }
 
 //setters
