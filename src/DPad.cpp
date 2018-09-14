@@ -7,6 +7,8 @@ const QColor DPad::DEFAULT_BACKGROUND_COLOR = QColor(109, 109, 109);
 //private functions
 void DPad::init(const QColor& arrowColor, const QColor& backgroundColor)
 {
+  //create down light
+  Light* downLight = new Light(this);
 }
 
 //event handlers
@@ -18,11 +20,13 @@ void DPad::paintEvent(QPaintEvent* e)
 DPad::DPad(QWidget* parent) :
   QWidget(parent)
 {
+  init(DEFAULT_ARROW_COLOR, DEFAULT_BACKGROUND_COLOR);
 }
 DPad::DPad(const QColor& arrowColor, const QColor& backgroundColor,
            QWidget* parent) :
   QWidget(parent)
 {
+  init(arrowColor, backgroundColor);
 }
 DPad::~DPad()
 {
@@ -58,12 +62,12 @@ void DPad::setButtonState(Button button, bool newState)
   if (newState)
   {
     m_buttons[button]->turnOn();
-    emit buttonPressed();
+    emit buttonPressed(button);
   } //end  if (newState)
   else
   {
     m_buttons[button]->turnOff();
-    emit buttonReleased();
+    emit buttonReleased(button);
   } //end  else
 
   emit buttonStateChanged(button, newState);

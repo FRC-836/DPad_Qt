@@ -9,10 +9,12 @@
 #include <qevent.h>
 #include <qcolor.h>
 
-#include "Light.h"
+#include "ui_DPad.h"
 
 class DPad : public QWidget
 {
+  Q_OBJECT
+
 public:
   //enums and types
   enum class Button
@@ -20,11 +22,13 @@ public:
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    NUM_BUTTONS
   };
 
 private:
   //member data
+  Ui_DPad* m_ui;
   QMap<Button, Light*> m_buttons;
   QColor m_arrowColor;
   QColor m_backgroundColor;
