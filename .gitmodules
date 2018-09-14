@@ -1,0 +1,3 @@
+[submodule "deps/Light_Qt"]
+	path = deps/Light_Qt
+	url = git@github.com:Cheeto836/Light_Qt.git
