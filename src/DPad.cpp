@@ -193,6 +193,8 @@ void DPad::setButtonState(Button button, bool newState)
   } //end  else
 
   emit buttonStateChanged(button, newState);
+
+  repaint();
 }
 void DPad::setArrowColor(const QColor& color)
 {
