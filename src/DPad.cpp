@@ -7,6 +7,12 @@ const double DPad::ARROW_HEIGHT_SCALE = 0.1;
 const double DPad::ARROW_BAR_HEIGHT_SCALE = 0.25;
 const double DPad::ARROW_HEAD_SCALE = 0.1;
 const double DPad::CIRCLE_SCALE = 0.1;
+const QMap<DPad::Button, double> DPad::BUTTON_ROTATION_MAP = {
+  {Button::DOWN, 270},
+  {Button::LEFT, 180},
+  {Button::RIGHT, 0},
+  {Button::UP, 90}
+};
 
 //private functions
 void DPad::init(const QColor& arrowColor, const QColor& backgroundColor)
@@ -94,6 +100,16 @@ void DPad::paintEvent(QPaintEvent* e)
     arrow.closeSubpath();
 
     //calculate angle to rotate
+    int numOn = 0;
+    for (auto button : BUTTON_ROTATION_MAP.toStdMap())
+    {
+      if (m_buttons[button.first]->on())
+      {
+        rotation += button.second;
+        numOn++;
+      } //end  if (m_buttons[button.first]->on())
+    } //end  for (auto button : BUTTON_ROTATION_MAP.toStdMap())
+    rotation /= numOn;
 
     //set translation to make the points centered on the center of the widget
     translation.setX(halfWidth);
@@ -117,7 +133,7 @@ void DPad::paintEvent(QPaintEvent* e)
   painter.setBrush(brush);
   painter.setPen(pen);
   painter.translate(translation);
-  painter.rotate(rotation);
+  painter.rotate(-rotation);
   painter.drawPath(arrow);
 }
 
