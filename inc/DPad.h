@@ -35,9 +35,14 @@ private:
   //defaults
   static const QColor DEFAULT_ARROW_COLOR;
   static const QColor DEFAULT_BACKGROUND_COLOR;
+  static const double ARROW_HEIGHT_SCALE; //multiplier for height of the arrow based on widget height
+  static const double ARROW_BAR_HEIGHT_SCALE; //multipler for height of bar based on arrow height
+  static const double ARROW_HEAD_SCALE; //multipler for width of the arrow head based on arrow bar width
+  static const double CIRCLE_SCALE; //multiplier for size of the circle based on size of box between button circles
 
   //private functions
   void init(const QColor& arrowColor, const QColor& backgroundColor);
+  bool allOff();
 
 protected:
   //event handlers
