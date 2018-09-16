@@ -32,7 +32,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_SYSTEM_NAME}${ARC
 
 #setup include and linking directories
 include_directories(inc
-                    )
+                      )
                     
 
 #setup source files
@@ -48,4 +48,6 @@ add_executable(${PROJECT_NAME} ${src} ${include})
 
 #linking
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets
-                                      DPad_Qt)
+                                      DPad_Qt
+                                      Light_Qt
+                                      )
