@@ -39,11 +39,12 @@ private:
   static const double ARROW_BAR_HEIGHT_SCALE; //multipler for height of bar based on arrow height
   static const double ARROW_HEAD_SCALE; //multipler for width of the arrow head based on arrow bar width
   static const double CIRCLE_SCALE; //multiplier for size of the circle based on size of box between button circles
-  static const QMap<Button, double> BUTTON_ROTATION_MAP; //how far the arrow needs to rotate if a certain button is pressed
+  static const QMap<Button, QPoint> BUTTON_ROTATION_MAP; //how far the arrow needs to rotate if a certain button is pressed
 
   //private functions
   void init(const QColor& arrowColor, const QColor& backgroundColor);
   bool allOff();
+  bool allOn();
 
 protected:
   //event handlers

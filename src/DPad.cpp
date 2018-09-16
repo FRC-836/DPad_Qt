@@ -7,11 +7,11 @@ const double DPad::ARROW_HEIGHT_SCALE = 0.1;
 const double DPad::ARROW_BAR_HEIGHT_SCALE = 0.25;
 const double DPad::ARROW_HEAD_SCALE = 0.1;
 const double DPad::CIRCLE_SCALE = 0.1;
-const QMap<DPad::Button, double> DPad::BUTTON_ROTATION_MAP = {
-  {Button::DOWN, 270},
-  {Button::LEFT, 180},
-  {Button::RIGHT, 0},
-  {Button::UP, 90}
+const QMap<DPad::Button, QPoint> DPad::BUTTON_ROTATION_MAP = {
+  {Button::DOWN, {0, -1}},
+  {Button::LEFT, {-1, 0}},
+  {Button::RIGHT, {1, 0}},
+  {Button::UP, {0, 1}}
 };
 
 //private functions
@@ -36,6 +36,17 @@ bool DPad::allOff()
   for (auto light : m_buttons)
   {
     if (light->on())
+    {
+      return false;
+    } //end  if (!light->on())
+  } //end  for (auto light : m_buttons)
+  return true;
+}
+bool DPad::allOn()
+{
+  for (auto light : m_buttons)
+  {
+    if (!light->on())
     {
       return false;
     } //end  if (!light->on())
@@ -70,9 +81,20 @@ void DPad::paintEvent(QPaintEvent* e)
 
   //create arrow
   QPainterPath arrow;
-  int rotation = 0; //angle to rotate the arrow
+  QPoint pointedToPoint = QPoint(); //point that the dpad is pointing to based on button presses
   QPoint translation; //different depending on a button is pressed or not
-  if (allOff())
+
+  //calculate angle to rotate
+  for (auto button : BUTTON_ROTATION_MAP.toStdMap())
+  {
+    if (m_buttons[button.first]->on())
+    {
+      pointedToPoint += button.second;
+    } //end  if (m_buttons[button.first]->on())
+  } //end  for (auto button : BUTTON_ROTATION_MAP.toStdMap())
+  int rotation = atan2(pointedToPoint.y(), pointedToPoint.x()) * 180 / 3.14159265;
+
+  if (pointedToPoint.y() == 0 && pointedToPoint.x() == 0)
   {
     auto circleWidth = (xTwo - xOne) * CIRCLE_SCALE;
     auto circleHeight = (yTwo - yOne) * CIRCLE_SCALE;
@@ -98,18 +120,6 @@ void DPad::paintEvent(QPaintEvent* e)
     arrow.lineTo(xTwo - halfWidth, 0);
     arrow.lineTo(xOne + barWidth - halfWidth, -(arrowHeight / 2));
     arrow.closeSubpath();
-
-    //calculate angle to rotate
-    int numOn = 0;
-    for (auto button : BUTTON_ROTATION_MAP.toStdMap())
-    {
-      if (m_buttons[button.first]->on())
-      {
-        rotation += button.second;
-        numOn++;
-      } //end  if (m_buttons[button.first]->on())
-    } //end  for (auto button : BUTTON_ROTATION_MAP.toStdMap())
-    rotation /= numOn;
 
     //set translation to make the points centered on the center of the widget
     translation.setX(halfWidth);

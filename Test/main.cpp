@@ -10,10 +10,7 @@ int main(int argc, char** argv)
   QApplication app(argc, argv);
 
   DPad d;
-
   d.show();
-  d.pressButton(DPad::Button::LEFT);
-  d.pressButton(DPad::Button::UP);
 
   QPushButton btnUp("up");
   btnUp.show();
