@@ -71,7 +71,7 @@ target_link_libraries(${PROJECT_NAME}
                       Light_Qt
                       )
 
-set(BUILD_TEST true)
+set(BUILD_TEST false)
 if(BUILD_TEST)
   add_subdirectory(Test)
 endif(BUILD_TEST)
