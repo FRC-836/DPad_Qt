@@ -60,11 +60,6 @@ include_directories(inc
 #create executable
 add_library(${PROJECT_NAME} ${src} ${inc} ${forms})
 
-#move the generated Ui file to the include directory
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_CURRENT_BINARY_DIR}/DPad_Qt_autogen/include/ui_DPad.h ${CMAKE_CURRENT_SOURCE_DIR}/inc
-                   )
-
 #use the widgets moduole from Qt 5
 target_link_libraries(${PROJECT_NAME} 
                       Qt5::Widgets
