@@ -6,6 +6,7 @@ project(DPad_Qt_Test)
 #setup qt
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+#set(CMAKE_AUTOUIC ON)
 
 #fine QtWidgets library
 find_package(Qt5Widgets REQUIRED)
@@ -43,8 +44,10 @@ set(src main.cpp
 set(include 
             )
             
+qt5_wrap_ui(UI_HEADERS ${CMAKE_SOURCE_DIR}/inc/DPad.ui
+           )
 #create the library
-add_executable(${PROJECT_NAME} ${src} ${include})
+add_executable(${PROJECT_NAME} ${src} ${include} ${UI_HEADERS})
 
 #linking
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets
