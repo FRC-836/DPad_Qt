@@ -191,20 +191,26 @@ QColor DPad::buttonOffColor() const
 //setters
 void DPad::setButtonState(Button button, bool newState)
 {
-  if (newState)
+  //only update the button if its current state isn't the same as the new state
+  if (newState != m_buttons[button]->on())
   {
-    m_buttons[button]->turnOn();
-    emit buttonPressed(button);
-  } //end  if (newState)
-  else
-  {
-    m_buttons[button]->turnOff();
-    emit buttonReleased(button);
-  } //end  else
+    if (newState)
+    {
+      m_buttons[button]->turnOn();
+      emit buttonPressed(button);
+    } //end  if (newState)
+    else
+    {
+      m_buttons[button]->turnOff();
+      emit buttonReleased(button);
+    } //end  else
 
-  emit buttonStateChanged(button, newState);
+    //emit button state changed signal
+    emit buttonStateChanged(button, newState);
 
-  repaint();
+    //repaint the widget
+    repaint();
+  } //end  if (newState != m_buttons[button]->on())
 }
 void DPad::setArrowColor(const QColor& color)
 {
