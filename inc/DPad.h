@@ -1,6 +1,8 @@
 #ifndef D_PAD_REPRESENTATION_H
 #define D_PAD_REPRESENTATION_H
 
+#include <cmath>
+
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qbrush.h>
@@ -8,8 +10,12 @@
 #include <qpainterpath.h>
 #include <qevent.h>
 #include <qcolor.h>
-
+#ifdef INCLUDE_DPAD_GENERATED
 #include "ui_DPad.h"
+#else
+class Ui_DPad;
+class Light;
+#endif
 
 class DPad : public QWidget
 {
