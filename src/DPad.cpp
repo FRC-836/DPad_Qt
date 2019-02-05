@@ -92,7 +92,7 @@ void DPad::paintEvent(QPaintEvent* e)
       pointedToPoint += button.second;
     } //end  if (m_buttons[button.first]->on())
   } //end  for (auto button : BUTTON_ROTATION_MAP.toStdMap())
-  int rotation = atan2(pointedToPoint.y(), pointedToPoint.x()) * 180 / 3.14159265;
+  int rotation = std::atan2(pointedToPoint.y(), pointedToPoint.x()) * 180 / 3.14159265;
 
   if (pointedToPoint.y() == 0 && pointedToPoint.x() == 0)
   {
