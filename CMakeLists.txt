@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 
 #instruct CMake to run moc automatically when needed
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_OPTIONS -o inc/)
@@ -30,6 +31,7 @@ set(inc inc/DPad.h
 set(forms inc/DPad.ui
           )
 
+set(CMAKE_INCLUDE_CURRENT_BINARY_DIR ON)
 
 #setup inc as a valid include directory
 include_directories(inc
@@ -39,6 +41,8 @@ include_directories(inc
                     
 #create executable
 add_library(${PROJECT_NAME} ${src} ${inc} ${forms})
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE INCLUDE_DPAD_GENERATED)
 
 #use the widgets moduole from Qt 5
 target_link_libraries(${PROJECT_NAME} 
